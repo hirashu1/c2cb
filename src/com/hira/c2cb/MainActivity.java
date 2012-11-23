@@ -23,7 +23,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         updateCurrentClipBoardShown();
 
-        creteCopyButton();
+        registCopyBtnEvntListner();
+        registAddBtnEvntListner();
         registEditTextListner();
         showPrefData();
     }
@@ -43,7 +44,7 @@ public class MainActivity extends Activity {
         mData.setDataEditText(data);
     }
     
-    private void creteCopyButton() {
+    private void registCopyBtnEvntListner() {
 	    Button btn = (Button) this.findViewById(R.id.copy_button);
 	    btn.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
@@ -52,6 +53,22 @@ public class MainActivity extends Activity {
 	            updateCurrentClipBoardShown();
 	        }
 	    });
+    }
+
+    private void registAddBtnEvntListner() {
+	    Button btn = (Button) this.findViewById(R.id.add_button);
+	    btn.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
+	        	addSaveDataBlock();
+	        }
+	    });    	
+    }
+
+    private void addSaveDataBlock() {
+    	// Blockを作成する
+    	// CopyButton / Title / Data を作成する
+    	// AddButtonを下にずらす。
+    	// 表示する
     }
     
     private String getEditText() {
@@ -89,7 +106,7 @@ public class MainActivity extends Activity {
     private String getCurrentClipBoardText() {
         ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
         ClipData clip = cm.getPrimaryClip();
-        if(clip != null){
+        if (clip != null) {
             ClipData.Item item = clip.getItemAt(0);
             return item.getText().toString();
         } else {
