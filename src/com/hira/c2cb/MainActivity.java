@@ -14,22 +14,39 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	private static final String TAG = "MainActivity";
-	
-    @Override
+	private static final String TAG = "C2CB_MainActivity";
+	private SaveData mData;
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         updateCurrentClipBoardShown();
 
         creteCopyButton();
+        registEditTextListner();
+        showPrefData();
     }
+	
+	private void showPrefData() {
+        EditText title = (EditText) this.findViewById(R.id.title);
+        EditText data = (EditText) this.findViewById(R.id.text_data);
+        title.setText(mData.getTitle());
+        data.setText(mData.getData());
+	}
 
+    private void registEditTextListner() {
+        mData = new SaveData(this);
+        EditText title = (EditText) this.findViewById(R.id.title);
+        EditText data = (EditText) this.findViewById(R.id.text_data);
+        mData.setTitleEditText(title);
+        mData.setDataEditText(data);
+    }
+    
     private void creteCopyButton() {
 	    Button btn = (Button) this.findViewById(R.id.copy_button);
 	    btn.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
-	//            showToast(str);
 	            String str = getEditText();
 	            setClipBoard(str);
 	            updateCurrentClipBoardShown();
@@ -39,7 +56,7 @@ public class MainActivity extends Activity {
     
     private String getEditText() {
         EditText et = (EditText) this.findViewById(R.id.text_data);
-        Log.v(TAG,"copy to clipbord " + et.getText().toString());
+        //Log.v(TAG,"copy to clipbord " + et.getText().toString());
         return et.getText().toString();
     }
 
@@ -47,7 +64,6 @@ public class MainActivity extends Activity {
         if (str == null) {
                 return;
         }
-
         //クリップボードに格納するItemを作成
         ClipData.Item item = new ClipData.Item(str);
 
@@ -75,9 +91,9 @@ public class MainActivity extends Activity {
         ClipData clip = cm.getPrimaryClip();
         if(clip != null){
             ClipData.Item item = clip.getItemAt(0);
-                return item.getText().toString();
+            return item.getText().toString();
         } else {
-                return null;
+            return null;
         }
     }
 
