@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/nowData"
+        android:id="@+id/now_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -13,28 +13,32 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/copy_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/nowData"
-        android:text="Button" />
+        android:layout_below="@+id/now_data"
+        android:text="Copy" />
 
-    <TextView
+    <EditText
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button"
-        android:layout_toRightOf="@+id/button"
+        android:layout_alignBottom="@+id/copy_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/copy_button"
+        android:layout_toRightOf="@+id/copy_button"
         android:text="Title"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/textData"
+    <EditText
+        android:id="@+id/text_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button"
-        android:layout_toRightOf="@+id/button"
+        android:layout_alignLeft="@+id/title"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/title"
+        android:ems="10"
         android:text="TextData"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -44,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/text_data"
         android:text="Add" />
 
 </RelativeLayout>

@@ -5,32 +5,41 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
+	private static final String TAG = "MainActivity";
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         updateCurrentClipBoardShown();
 
-        Button btn = (Button) this.findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-//                showToast(str);
-                String str = getEditText();
-                setClipBoard(str);
-                updateCurrentClipBoardShown();
-            }
-        });
+        creteCopyButton();
     }
 
+    private void creteCopyButton() {
+	    Button btn = (Button) this.findViewById(R.id.copy_button);
+	    btn.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
+	//            showToast(str);
+	            String str = getEditText();
+	            setClipBoard(str);
+	            updateCurrentClipBoardShown();
+	        }
+	    });
+    }
+    
     private String getEditText() {
-        TextView et = (TextView) this.findViewById(R.id.nowData);
+        EditText et = (EditText) this.findViewById(R.id.text_data);
+        Log.v(TAG,"copy to clipbord " + et.getText().toString());
         return et.getText().toString();
     }
 
@@ -54,11 +63,13 @@ public class MainActivity extends Activity {
                 cm.setPrimaryClip(cd);
     }
 
+    // 現在のクリップボードの内容を表示する
     private void updateCurrentClipBoardShown() {
         String str = getCurrentClipBoardText();
         showTextView(str);
     }
     
+    // 現在のクリップボードの文字列を取得する
     private String getCurrentClipBoardText() {
         ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
         ClipData clip = cm.getPrimaryClip();
@@ -70,11 +81,11 @@ public class MainActivity extends Activity {
         }
     }
 
+    //TextBoxに文字列を表示する
     private void showTextView(String str) {
-       TextView tv = (TextView) this.findViewById(R.id.nowData);
+       TextView tv = (TextView) this.findViewById(R.id.now_data);
        tv.setText(str);
     }
-
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
