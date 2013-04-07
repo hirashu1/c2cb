@@ -3,6 +3,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+       
+               
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="15" />
@@ -14,11 +16,22 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+			<intent-filter>
+			  <action android:name="android.intent.action.SEND" />
+			  <category android:name="android.intent.category.DEFAULT" />
+			  <data android:mimeType="text/*" />
+			</intent-filter>
+		    <intent-filter>
+		        <action android:name="android.intent.action.MAIN" />
+		        <category android:name="android.intent.category.LAUNCHER" />
+		    </intent-filter>
+		    <intent-filter>
+		       <action android:name="android.intent.action.VIEW" />
+		       <category android:name="android.intent.category.DEFAULT" />
+		       <data android:scheme="http"></data> 
+		    </intent-filter>
+            
+            
         </activity>
     </application>
 

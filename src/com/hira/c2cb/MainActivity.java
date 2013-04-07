@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -40,8 +42,25 @@ public class MainActivity extends Activity {
 		setContentView(mLayout);
 
 		initializeMember();
+		createIntentReceiver();
 	}
 
+	private void createIntentReceiver() {
+		Intent intent = getIntent();
+		String action = intent.getAction();
+		if (Intent.ACTION_SEND.equals(action)) {
+		  Bundle extras = intent.getExtras();
+		  if (extras != null) {
+
+//			  String practice_name = getIntent().getStringExtra("practice_menu");
+//			  Toast.makeText(this, "practice_menu="+practice_name, Toast.LENGTH_LONG).show();
+			  CharSequence ext = extras.getCharSequence(Intent.EXTRA_TEXT);
+			  Toast.makeText(this, "set Clipborad to \""+ ext.toString() + "\"", Toast.LENGTH_LONG).show();
+              setClipBoard(ext.toString());
+		  }
+		}
+	}
+	
 	private DataBoxManager mDataBoxManager = null;
 	private void initializeMember() {
 		mDataBoxManager = new DataBoxManager(this, mLayout);
