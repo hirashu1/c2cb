@@ -42,24 +42,10 @@ public class MainActivity extends Activity {
 		setContentView(mLayout);
 
 		initializeMember();
-		createIntentReceiver();
+
 	}
 
-	private void createIntentReceiver() {
-		Intent intent = getIntent();
-		String action = intent.getAction();
-		if (Intent.ACTION_SEND.equals(action)) {
-		  Bundle extras = intent.getExtras();
-		  if (extras != null) {
 
-//			  String practice_name = getIntent().getStringExtra("practice_menu");
-//			  Toast.makeText(this, "practice_menu="+practice_name, Toast.LENGTH_LONG).show();
-			  CharSequence ext = extras.getCharSequence(Intent.EXTRA_TEXT);
-			  Toast.makeText(this, "set Clipborad to \""+ ext.toString() + "\"", Toast.LENGTH_LONG).show();
-              setClipBoard(ext.toString());
-		  }
-		}
-	}
 	
 	private DataBoxManager mDataBoxManager = null;
 	private void initializeMember() {
@@ -149,28 +135,12 @@ public class MainActivity extends Activity {
     }
 */
     protected void updateCurrentClipboard(String str) {
-    	setClipBoard(str);
+        ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+    	Util.setClipBoard(cm, str);
     	updateCurrentClipBoardShown();
     }
     
-    private void setClipBoard(String str) {
-        if (str == null) {
-                return;
-        }
-        //クリップボードに格納するItemを作成
-        ClipData.Item item = new ClipData.Item(str);
 
-        //MIMETYPEの作成
-        String[] mimeType = new String[1];
-        mimeType[0] = ClipDescription.MIMETYPE_TEXT_PLAIN;
-
-        //クリップボードに格納するClipDataオブジェクトの作成
-        ClipData cd = new ClipData(new ClipDescription("text_data", mimeType), item);
-
-        //クリップボードにデータを格納
-        ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                cm.setPrimaryClip(cd);
-    }
 
     // 現在のクリップボードの内容を表示する
     private void updateCurrentClipBoardShown() {
